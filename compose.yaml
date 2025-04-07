@@ -1,0 +1,32 @@
+services:
+  proxy:
+    image: nginx
+    volumes:
+      - ./nginx.conf:/tmp/nginx.conf
+      - ./proxy_params:/etc/nginx/proxy_params
+    environment:
+      - CHATUI_ADDR=chatui:3000
+    command: /bin/bash -c "envsubst < /tmp/nginx.conf > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'" 
+    ports:
+      - 80:80
+    depends_on:
+      - chatui
+
+  chatui:
+    image: ghcr.io/huggingface/chat-ui:sha-7fe394c
+    volumes:
+      - ./db:/data
+      - ./env.local:/.env.local
+    ports:
+      - 3000:3000
+    environment:
+      - HF_TOKEN=hf_***
+      - MONGODB_URL=mongodb://mongoui:27017
+    depends_on:
+      - mongoui
+
+  mongoui:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+      
