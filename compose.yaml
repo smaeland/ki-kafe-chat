@@ -16,7 +16,7 @@ services:
     image: ghcr.io/huggingface/chat-ui:sha-7fe394c
     volumes:
       - ./db:/data
-      - ./env.local:/.env.local
+      - ./env.local:/app/.env.local
     ports:
       - 3000:3000
     environment:
