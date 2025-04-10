@@ -9,27 +9,23 @@ Start servers:
 docker compose up -d
 ```
 
-**TODO**  change nginx server name 
-
 ### GPU server
 
-open firewall for frontend server (ok)
+Open firewall for frontend server
 
-open tmux
-
-install uv
+Install uv
 ```
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-install vllm
+Install vllm
 ```
 uv venv myenv --python 3.12 --seed
 source myenv/bin/activate
 uv pip install vllm
 ```
 
-run
+Run
 ```
 vllm serve norallm/normistral-7b-warm-instruct
 ```
